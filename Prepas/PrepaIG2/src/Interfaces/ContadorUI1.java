@@ -7,6 +7,7 @@ package Interfaces;
 import javax.swing.JOptionPane;
 import prepaig2.Contador;
 import prepaig2.Herramientas;
+import prepaig2.Global;
 
 /**
  *
@@ -15,7 +16,6 @@ import prepaig2.Herramientas;
 public class ContadorUI1 extends javax.swing.JFrame {
 
     Contador counter = new Contador(); // Crea el objeto "counter" de la clase Contador
-    
     /**
      * Creates new form ContadorUI
      */
@@ -42,7 +42,7 @@ public class ContadorUI1 extends javax.swing.JFrame {
         input = new javax.swing.JTextField();
         sumar = new javax.swing.JButton();
         resta = new javax.swing.JButton();
-        producto = new javax.swing.JButton();
+        abrirMultiplicador = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -75,10 +75,10 @@ public class ContadorUI1 extends javax.swing.JFrame {
             }
         });
 
-        producto.setText("Multiplicar");
-        producto.addActionListener(new java.awt.event.ActionListener() {
+        abrirMultiplicador.setText("Abrir multiplicador");
+        abrirMultiplicador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                productoActionPerformed(evt);
+                abrirMultiplicadorActionPerformed(evt);
             }
         });
 
@@ -100,16 +100,16 @@ public class ContadorUI1 extends javax.swing.JFrame {
                         .addGap(56, 56, 56)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
-                        .addComponent(input, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addComponent(sumar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(resta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addComponent(producto)
-                .addGap(63, 63, 63))
+                        .addComponent(input, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(sumar)
+                        .addGap(58, 58, 58)
+                        .addComponent(resta))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(114, 114, 114)
+                        .addComponent(abrirMultiplicador)))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,9 +127,10 @@ public class ContadorUI1 extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sumar)
-                    .addComponent(producto)
                     .addComponent(resta))
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(abrirMultiplicador)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
@@ -142,11 +143,13 @@ public class ContadorUI1 extends javax.swing.JFrame {
     }//GEN-LAST:event_inputActionPerformed
 
     private void sumarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumarActionPerformed
+
         int num;
         try {
             num = Integer.parseInt(input.getText());
             counter.sumar(num);
             contador.setText(Integer.toString(counter.getNumero()));
+            Global.setContador(counter);
             input.setText("");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error, ingrese un dato valido");
@@ -154,18 +157,20 @@ public class ContadorUI1 extends javax.swing.JFrame {
     }//GEN-LAST:event_sumarActionPerformed
 
     private void restaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaActionPerformed
+        
         int num = Herramientas.validarEntero(input.getText());
         if (num != 0) counter.resta(num);
         contador.setText(Integer.toString(counter.getNumero()));
         input.setText("");
     }//GEN-LAST:event_restaActionPerformed
 
-    private void productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productoActionPerformed
-        int num = Herramientas.validarEntero(input.getText());
-        if (num != 0) counter.producto(num);
-        contador.setText(Integer.toString(counter.getNumero()));
-        input.setText("");
-    }//GEN-LAST:event_productoActionPerformed
+    private void abrirMultiplicadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirMultiplicadorActionPerformed
+        
+        Global.setContador(counter);
+        this.setVisible(false);
+        MultiplicadorUI ventanaMulti = new MultiplicadorUI();
+        ventanaMulti.setVisible(true);
+    }//GEN-LAST:event_abrirMultiplicadorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,6 +199,8 @@ public class ContadorUI1 extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -204,13 +211,13 @@ public class ContadorUI1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton abrirMultiplicador;
     private javax.swing.JLabel contador;
     private javax.swing.JTextField input;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton producto;
     private javax.swing.JButton resta;
     private javax.swing.JButton sumar;
     // End of variables declaration//GEN-END:variables

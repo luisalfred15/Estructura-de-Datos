@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package prepaig2;
-import Interfaces.ContadorUI;
+import Interfaces.ContadorUI1;
 
 /**
  *
@@ -12,7 +12,7 @@ import Interfaces.ContadorUI;
 public class PrepaIG2 {
 
     public static void main(String[] args) {
-        ContadorUI ventana1 = new ContadorUI();
+        ContadorUI1 ventana1 = new ContadorUI1();
         ventana1.setVisible(true);
     }
 }
